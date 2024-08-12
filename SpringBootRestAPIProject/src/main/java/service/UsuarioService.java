@@ -1,30 +1,31 @@
-package service;
+package com.example.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.model.User;
+import com.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import com.sjprogramming.restapi.entity.Usuario;
-import com.sjprogramming.restapi.repository.UsuarioRepository;
+
+import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class UserService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
 
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public Usuario findById(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
-    public Usuario save(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
     }
 
-    public void deleteById(Long id) {
-        usuarioRepository.deleteById(id);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
+
+    // Otros métodos...
 }
